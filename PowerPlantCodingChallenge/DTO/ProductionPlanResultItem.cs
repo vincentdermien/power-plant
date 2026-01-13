@@ -8,6 +8,6 @@ namespace PowerPlantCodingChallenge.DTO
         public required string PowerPlantName { get; set; }
 
         [JsonPropertyName("p")]
-        public decimal Power { get; set; }
+        public double Power { get; set; }
     }
 }

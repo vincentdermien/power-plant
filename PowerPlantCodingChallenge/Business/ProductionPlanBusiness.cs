@@ -11,19 +11,18 @@ namespace PowerPlantCodingChallenge.Business
             var productionPlanResult = new ProductionPlanResult() { ProductionPlanResultItems = new List<ProductionPlanResultItem>() };
             calculatePowerPlantCost(productionPlanParams);
 
-            var givenPower = decimal.Zero;
-            var usedPowerPlant = new HashSet<string>();
+            var producedPower = 0d;
 
             foreach (var powerPlant in productionPlanParams.PowerPlants.OrderBy(x => x.CostEuroPerMWh))
             {
-                var stillNeededPower = productionPlanParams.Load - givenPower;
+                var stillNeededPower = productionPlanParams.Load - producedPower;
 
-                if (stillNeededPower == decimal.Zero)
+                if (stillNeededPower == 0d)
                 {
                     productionPlanResult.ProductionPlanResultItems.Add(new ProductionPlanResultItem()
                     {
                         PowerPlantName = powerPlant.Name,
-                        Power = decimal.Zero
+                        Power = 0d
                     });
                     continue;
                 }
@@ -32,42 +31,46 @@ namespace PowerPlantCodingChallenge.Business
                     continue;
 
                 var availablePower = calculatePowerPlantAvailablePower(powerPlant, productionPlanParams.Fuels.WindPercentage);
-                var usedPower = decimal.Min(stillNeededPower, availablePower);
+                var usedPower = double.Min(stillNeededPower, availablePower);
                 productionPlanResult.ProductionPlanResultItems.Add(new ProductionPlanResultItem()
                 {
                     PowerPlantName = powerPlant.Name,
                     Power = usedPower
                 });
 
-                givenPower += usedPower;
+                producedPower += usedPower;
             }
 
             return productionPlanResult;
         }
 
-        private decimal calculatePowerPlantAvailablePower(PowerPlantDto powerPlant, int windPercentage)
+        private double calculatePowerPlantAvailablePower(PowerPlantDto powerPlant, int windPercentage)
         {
             switch (powerPlant.Type)
             {
                 case Constants.PowerPlantWindTurbine:
-                    return decimal.Round((powerPlant.PMax / 100m) * windPercentage, 1);
+                    return double.Round((powerPlant.PMax / 100d) * windPercentage, 1);
                 default:
                     return powerPlant.PMax;
-            }   
+            }
         }
 
         private void calculatePowerPlantCost(ProductionPlanParam productionPlanParam)
         {
             foreach (var powerPlant in productionPlanParam.PowerPlants)
             {
-                if (powerPlant.Type == Constants.PowerPlantWindTurbine)
-                    powerPlant.CostEuroPerMWh = 0;
-
-                if (powerPlant.Type == Constants.PowerPlantGasFired)
-                    powerPlant.CostEuroPerMWh = productionPlanParam.Fuels.GasEuroPerMWh / powerPlant.Efficiency;
-
-                if (powerPlant.Type == Constants.PowerPlantTurboJet)
-                    powerPlant.CostEuroPerMWh = productionPlanParam.Fuels.KerosineEuroPerMWh / powerPlant.Efficiency;
+                switch (powerPlant.Type)
+                {
+                    case Constants.PowerPlantWindTurbine:
+                        powerPlant.CostEuroPerMWh = 0;
+                        break;
+                    case Constants.PowerPlantGasFired:
+                        powerPlant.CostEuroPerMWh = productionPlanParam.Fuels.GasEuroPerMWh / powerPlant.Efficiency;
+                        break;
+                    case Constants.PowerPlantTurboJet:
+                        powerPlant.CostEuroPerMWh = productionPlanParam.Fuels.KerosineEuroPerMWh / powerPlant.Efficiency;
+                        break;
+                }
             }
         }
     }

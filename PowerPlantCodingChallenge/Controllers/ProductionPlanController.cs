@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using PowerPlantCodingChallenge.Business;
 using PowerPlantCodingChallenge.DTO;
@@ -24,7 +23,7 @@ namespace PowerPlantCodingChallenge.Controllers
 
                 return Ok(productionPlanResult);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
