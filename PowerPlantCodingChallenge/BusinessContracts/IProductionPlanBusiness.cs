@@ -4,6 +4,6 @@ namespace PowerPlantCodingChallenge.BusinessContracts
 {
     public interface IProductionPlanBusiness
     {
-        ProductionPlanResult Calculate(ProductionPlanParam productionPlanParams);
+        List<ProductionPlanResult> Calculate(ProductionPlanParam productionPlanParams);
     }
 }

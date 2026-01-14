@@ -11,14 +11,14 @@ namespace PowerPlantCodingChallenge.DTO
         public required string Type { get; set; }
 
         [Required]
-        public double Efficiency { get; set; }
+        public decimal Efficiency { get; set; }
 
         [Required]
-        public int PMin { get; set; }
+        public decimal PMin { get; set; }
 
         [Required]
-        public int PMax { get; set; }
+        public decimal PMax { get; set; }
 
-        public double CostEuroPerMWh { get; set; }
+        public decimal CostEuroPerMWh { get; set; }
     }
 }

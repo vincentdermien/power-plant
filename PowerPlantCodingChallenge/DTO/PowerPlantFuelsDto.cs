@@ -7,17 +7,17 @@ namespace PowerPlantCodingChallenge.DTO
     {
         [Required]
         [JsonPropertyName("gas(euro/MWh)")]
-        public double GasEuroPerMWh  { get;set; }
+        public decimal GasEuroPerMWh  { get;set; }
 
         [Required]
         [JsonPropertyName("kerosine(euro/MWh)")]
-        public double KerosineEuroPerMWh { get; set; }
+        public decimal KerosineEuroPerMWh { get; set; }
 
         [JsonPropertyName("co2(euro/ton)")]
-        public int CO2EuroPerTon { get; set; }
+        public decimal CO2EuroPerTon { get; set; }
 
         [Required]
         [JsonPropertyName("wind(%)")]
-        public int WindPercentage { get; set; }
+        public decimal WindPercentage { get; set; }
     }
 }

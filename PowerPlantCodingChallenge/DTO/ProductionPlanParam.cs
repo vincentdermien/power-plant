@@ -6,7 +6,7 @@ namespace PowerPlantCodingChallenge.DTO
     {
         [Required]
         [Range(0d, double.MaxValue)]
-        public double Load { get; set; }
+        public decimal Load { get; set; }
 
         [Required]
         public required PowerPlantFuelsDto Fuels { get; set; }
