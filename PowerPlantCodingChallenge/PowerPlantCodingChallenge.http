@@ -173,3 +173,30 @@ Content-Type: application/json
   ]
 }
 ###
+
+POST {{PowerPlantCodingChallenge_HostAddress}}/api/productionplan/
+Content-Type: application/json
+{
+  "load": 90,
+  "fuels": {
+    "gas(euro/MWh)": 13,
+    "kerosine(euro/MWh)": 50,
+    "wind(%)": 0
+  },
+  "powerplants": [
+    {
+      "name": "cheap_gas",
+      "type": "gasfired",
+      "efficiency": 0.5,
+      "pmin": 80,
+      "pmax": 100
+    },
+    {
+      "name": "expensive_jet",
+      "type": "turbojet",
+      "efficiency": 0.3,
+      "pmin": 20,
+      "pmax": 50
+    }
+  ]
+}

@@ -1,5 +1,4 @@
 ﻿using PowerPlantCodingChallenge.BusinessContracts;
-using PowerPlantCodingChallenge.Controllers;
 using PowerPlantCodingChallenge.DTO;
 using PowerPlantCodingChallenge.Utils;
 
@@ -19,9 +18,9 @@ namespace PowerPlantCodingChallenge.Business
     /// Complexity: O(n log n) dominated by sorting plants by cost when reducing excess power.
     /// </remarks>
     /// <param name="logger">Logger used for error reporting and diagnostics.</param>
-    public class ProductionPlanBusiness(ILogger<ProductionPlanController> logger) : IProductionPlanBusiness
+    public class ProductionPlanBusiness(ILogger<ProductionPlanBusiness> logger) : IProductionPlanBusiness
     {
-        private readonly ILogger<ProductionPlanController> _logger = logger;
+        private readonly ILogger<ProductionPlanBusiness> _logger = logger;
 
         /// <summary>
         /// Calculates the production plan for the given parameters.
